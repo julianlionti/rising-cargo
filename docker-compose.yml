@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: ./apps/gateway/Dockerfile
+      target: development
+    command: npm run start:devdocker gateway
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 8000:8000
+
+  reservation:
+    build:
+      context: .
+      dockerfile: ./apps/reservation/Dockerfile
+      target: development
+    command: npm run start:devdocker reservation
+    volumes:
+      - .:/app
+      - /app/node_modules
+    
+    ports:
+      - 8001:8000
+    
