@@ -1,5 +1,5 @@
 export enum Status {
-  Active,
+  Active = 1,
   Cancelled,
   Pending,
   Finished,

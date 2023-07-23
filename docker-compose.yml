@@ -6,6 +6,8 @@ services:
       dockerfile: ./apps/gateway/Dockerfile
       target: development
     command: npm run start:devdocker gateway
+    env_file:
+      - ./apps/gateway/.env
     volumes:
       - .:/app
       # - "/app/node_modules"
@@ -18,10 +20,24 @@ services:
       dockerfile: ./apps/reservation/Dockerfile
       target: development
     command: npm run start:devdocker reservation
+    env_file:
+      - ./apps/reservation/.env
     volumes:
       - .:/app
       # - "/app/node_modules"
-    
+
     ports:
       - 8001:8000
-    
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    command: mongod --port 27018
+    ports:
+      - 27018:27018
+    volumes:
+      - ./db/data/db:/data/db
+      - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js

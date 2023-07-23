@@ -1,11 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ReservationService } from '../service/reservation.service';
 import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateReservationDto } from '../dto/create-reservation.dto';
+import { ReservationDto } from '../dto/reservation.dto';
+import { FindOneParams } from '@app/shared/common/FindOneParams';
 
 @Controller()
 @ApiTags('Reservation')
@@ -13,22 +14,31 @@ export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
   /**
-   * Create reservation by Id
+   * Get all reservations
    */
   @Get()
-  getHello(): string {
-    return this.reservationService.getHello();
+  get() {
+    return this.reservationService.get();
+  }
+
+  /**
+   * Get reservation by Id
+   */
+  @Get(':id')
+  getById(@Param() params: FindOneParams) {
+    return this.reservationService.getById(params.id);
   }
 
   /**
    * Create reservation
+   * @returns []
    */
   @Post()
   @ApiCreatedResponse({
     description: 'The record has been successfully created.',
   })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async create(@Body() createCatDto: CreateReservationDto) {
-    this.reservationService.create(createCatDto);
+  async create(@Body() reservationDto: ReservationDto) {
+    this.reservationService.create(reservationDto);
   }
 }
