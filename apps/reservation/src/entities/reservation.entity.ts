@@ -5,6 +5,7 @@ import { Status } from '../enums/status';
 @Schema({ timestamps: true })
 export class Reservation extends AbstractDocument {
   @Prop()
+  @Prop()
   date: Date;
 
   @Prop({ type: String, enum: Status })

@@ -1,12 +1,12 @@
 import { AbstractRepository } from '@app/shared';
 import { Injectable, Logger } from '@nestjs/common';
-import { Reservation } from '../schemas/reservation.schema';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
+import { Reservation } from '../entities/reservation.entity';
 
 @Injectable()
-export class ReservationRepository extends AbstractRepository<Reservation> {
-  protected readonly logger = new Logger(ReservationRepository.name);
+export class ReservationsRepository extends AbstractRepository<Reservation> {
+  protected readonly logger = new Logger(ReservationsRepository.name);
 
   constructor(
     @InjectConnection()

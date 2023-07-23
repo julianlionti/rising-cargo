@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ReservationController } from './handler/reservation.controller';
-import { ReservationService } from './service/reservation.service';
-import { ReservationRepository } from './repository/reservation.repository';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { DatabaseModule } from '@app/shared';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Reservation, ReservationSchema } from './schemas/reservation.schema';
+import { Reservation, ReservationSchema } from './entities/reservation.entity';
+import { ReservationsController } from './handler/reservations.controller';
+import { ReservationsService } from './service/reservations.service';
+import { ReservationsRepository } from './repository/reservations.repository';
 
 @Module({
   imports: [
@@ -21,8 +21,9 @@ import { Reservation, ReservationSchema } from './schemas/reservation.schema';
     MongooseModule.forFeature([
       { name: Reservation.name, schema: ReservationSchema },
     ]),
+    ReservationsModule,
   ],
-  controllers: [ReservationController],
-  providers: [ReservationService, ReservationRepository],
+  controllers: [ReservationsController],
+  providers: [ReservationsService, ReservationsRepository],
 })
-export class ReservationModule {}
+export class ReservationsModule {}

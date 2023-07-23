@@ -1,9 +1,9 @@
-import { Status } from '../enums/status';
-import { IsDate, IsString, Matches } from 'class-validator';
-import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsDate, IsString, Matches } from 'class-validator';
+import { Status } from '../enums/status';
 
-export class ReservationDto {
+export class CreateReservationDto {
   /**
    * Reservation date in milliseconds
    */

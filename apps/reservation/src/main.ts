@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { ReservationModule } from './reservation.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { ReservationsModule } from './reservation.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ReservationModule);
+  const app = await NestFactory.create(ReservationsModule);
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
