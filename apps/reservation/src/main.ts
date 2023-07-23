@@ -9,13 +9,17 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Rising Cargo - Reservation')
-    .setDescription('Rising Cargo API documentation')
+    .setDescription('Reservations')
     .setVersion('1.0')
-    // .addTag('rising-cargo')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   await app.listen(8000);
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();

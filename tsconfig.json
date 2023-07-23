@@ -17,6 +17,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "types": [
+      "webpack-env"
+    ],
     "paths": {
       "@app/shared": [
         "libs/shared/src"
@@ -24,12 +27,6 @@
       "@app/shared/*": [
         "libs/shared/src/*"
       ],
-      "@app/database": [
-        "libs/database/src"
-      ],
-      "@app/database/*": [
-        "libs/database/src/*"
-      ]
     }
   },
   "watchOptions": {
