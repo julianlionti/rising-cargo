@@ -12,15 +12,19 @@ import { CreateReservationDto } from '../dto/create-reservation.dto';
 import { UpdateReservationDto } from '../dto/update-reservation.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('reservations')
+@Controller()
 @ApiTags('Reservation')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
+  @Get('/status')
+  getStatus() {
+    return { running: true };
+  }
+
   /**
    * Create new reservation
    * @param createReservationDto
-   * @returns 201
    */
   @Post()
   create(@Body() createReservationDto: CreateReservationDto) {
@@ -46,7 +50,6 @@ export class ReservationsController {
     @Param('id') id: string,
     @Body() updateReservationDto: UpdateReservationDto,
   ) {
-    console.log('Patch');
     return this.reservationsService.update(id, updateReservationDto);
   }
 

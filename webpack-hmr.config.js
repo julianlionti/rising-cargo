@@ -15,6 +15,7 @@ module.exports = function (options, webpack) {
     watchOptions: {
       aggregateTimeout: 500,
       poll: 1000,
+      ignored: ['**/node_modules'],
     },
     plugins: [
       ...options.plugins,

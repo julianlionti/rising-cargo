@@ -14,6 +14,21 @@ services:
     ports:
       - 8000:8000
 
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: npm run start:devdocker auth
+    env_file:
+      - ./apps/auth/.env
+    volumes:
+      - .:/app
+      # - "/app/node_modules"
+
+    ports:
+      - 8001:8001
+
   reservation:
     build:
       context: .
@@ -27,7 +42,7 @@ services:
       # - "/app/node_modules"
 
     ports:
-      - 8001:8000
+      - 8002:8002
 
   mongodb:
     image: mongo:latest
