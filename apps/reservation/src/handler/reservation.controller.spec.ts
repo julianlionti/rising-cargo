@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ReservationController } from './reservation.controller';
-import { ReservationService } from './reservation.service';
+import { ReservationService } from '../service/reservation.service';
 
 describe('ReservationController', () => {
   let reservationController: ReservationController;
@@ -11,7 +11,9 @@ describe('ReservationController', () => {
       providers: [ReservationService],
     }).compile();
 
-    reservationController = app.get<ReservationController>(ReservationController);
+    reservationController = app.get<ReservationController>(
+      ReservationController,
+    );
   });
 
   describe('root', () => {

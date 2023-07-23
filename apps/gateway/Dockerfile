@@ -2,13 +2,13 @@ FROM node:18.17.0-alpine AS development
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json yarn.lock ./
 
-RUN npm install --only=development
+RUN yarn install
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 FROM node:18.17.0-alpine as production
 
