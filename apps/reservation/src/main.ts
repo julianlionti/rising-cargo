@@ -9,6 +9,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Rising Cargo - Reservation')
     .setDescription('Reservations')
     .setVersion('1.0')

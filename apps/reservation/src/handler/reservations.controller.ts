@@ -6,13 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ReservationsService } from '../service/reservations.service';
 import { CreateReservationDto } from '../dto/create-reservation.dto';
 import { UpdateReservationDto } from '../dto/update-reservation.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '@app/shared';
 
 @Controller()
+@ApiBearerAuth()
 @ApiTags('Reservation')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
@@ -27,6 +30,7 @@ export class ReservationsController {
    * @param createReservationDto
    */
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() createReservationDto: CreateReservationDto) {
     return this.reservationsService.create(createReservationDto);
   }

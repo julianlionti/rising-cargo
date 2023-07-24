@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
-import { DatabaseModule } from '@app/shared';
+import { AuthModule, DatabaseModule, RmqModule, Services } from '@app/shared';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Reservation, ReservationSchema } from './entities/reservation.entity';
 import { ReservationsController } from './handler/reservations.controller';
@@ -21,7 +21,10 @@ import { ReservationsRepository } from './repository/reservations.repository';
     MongooseModule.forFeature([
       { name: Reservation.name, schema: ReservationSchema },
     ]),
-    ReservationsModule,
+    RmqModule.register({
+      name: Services.RESERVATION,
+    }),
+    AuthModule,
   ],
   controllers: [ReservationsController],
   providers: [ReservationsService, ReservationsRepository],

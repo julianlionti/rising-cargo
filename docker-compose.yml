@@ -5,12 +5,16 @@ services:
       context: .
       dockerfile: ./apps/gateway/Dockerfile
       target: development
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     command: npm run start:devdocker gateway
     env_file:
       - ./apps/gateway/.env
     volumes:
       - .:/app
-      # - "/app/node_modules"
+      - node_modules:/app/node_modules
+
     ports:
       - 8000:8000
 
@@ -20,11 +24,14 @@ services:
       dockerfile: ./apps/auth/Dockerfile
       target: development
     command: npm run start:devdocker auth
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     env_file:
       - ./apps/auth/.env
     volumes:
       - .:/app
-      # - "/app/node_modules"
+      - node_modules:/app/node_modules
 
     ports:
       - 8001:8001
@@ -35,11 +42,14 @@ services:
       dockerfile: ./apps/reservation/Dockerfile
       target: development
     command: npm run start:devdocker reservation
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     env_file:
       - ./apps/reservation/.env
     volumes:
       - .:/app
-      # - "/app/node_modules"
+      - node_modules:/app/node_modules
 
     ports:
       - 8002:8002
@@ -56,3 +66,17 @@ services:
     volumes:
       - ./db/data/db:/data/db
       - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 30s
+      retries: 10
+
+volumes:
+  node_modules:
